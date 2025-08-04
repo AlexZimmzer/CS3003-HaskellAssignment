@@ -12,7 +12,7 @@ findFirst needle haystack = go 0 haystack
   where
     go :: Int -> [a] -> Found
     go _ [] = NoMatch -- if no match, NoMatch
-    go i (x:xs) -- iterate through keeping track of index
+    go i (x:xs) = -- iterate through keeping track of index
       | needle x = Match i -- return if found
       | otherwise = go (i + 1) xs -- if not, iterate
 
