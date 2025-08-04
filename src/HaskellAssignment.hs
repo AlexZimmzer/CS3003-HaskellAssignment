@@ -10,11 +10,11 @@ instance Show Found where
 findFirst :: (a -> Bool) -> [a] -> Found
 findFirst needle haystack = go 0 haystack
   where
-    go :: Int -> [a] -> Found
-    go _ [] = NoMatch -- if no match, NoMatch
-    go i (x:xs) = -- iterate through keeping track of index
-      | needle x = Match i -- return if found
-      | otherwise = go (i + 1) xs -- if not, iterate
+    go _ [] = NoMatch
+    go i (x:xs)
+      | needle x  = Match i
+      | otherwise = go (i + 1) xs
+
 
       
 ------------------------------------------------
