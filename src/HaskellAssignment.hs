@@ -18,3 +18,4 @@ findFirst needle haystack = go 0 haystack
 -- palindrome
 ------------------------------------------------
 palindrome :: [Char] -> Bool
+palindrome candidate = candidate == reverse candidate
