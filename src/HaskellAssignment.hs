@@ -14,9 +14,7 @@ findFirst needle haystack = go 0 haystack
     go i (x:xs)
       | needle x  = Match i
       | otherwise = go (i + 1) xs
-
-
-      
+  
 ------------------------------------------------
 -- palindrome
 ------------------------------------------------
@@ -44,14 +42,13 @@ merge cmp (x:xs) (y:ys)
 ------------------------------------------------
 -- runLengthEncode
 ------------------------------------------------
-data RunLength = RunLength Int Char
-  deriving (Show, Eq)
+data RunLength = Span Int Char deriving Eq
+
+instance Show RunLength where
+  show (Span n c) = "<span of " ++ show n ++ " " ++ replicate n c ++ "s>"
 
 runLengthEncode :: String -> [RunLength]
 runLengthEncode [] = []
-runLengthEncode (x:xs) = encode 1 x xs
-  where
-    encode n c [] = [RunLength n c]
-    encode n c (y:ys)
-      | y == c    = encode (n + 1) c ys
-      | otherwise = RunLength n c : encode 1 y ys
+runLengthEncode (x:xs) = 
+  let (run, rest) = span (== x) xs
+  in Span (1 + length run) x : runLengthEncode rest
